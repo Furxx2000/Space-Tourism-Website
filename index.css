@@ -100,7 +100,6 @@ body {
 img,
 picture {
   max-width: 100%;
-  display: block;
 }
 
 /* make forms easier to work with */
@@ -594,6 +593,18 @@ body {
 .grid-container--destination > picture {
   grid-area: image;
   max-width: 60%;
+  animation: animation 0.5s ease-in;
+}
+
+@keyframes animation {
+  0% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .grid-container--destination > .tab-list {
@@ -718,7 +729,7 @@ body {
     justify-self: flex-start;
   }
 
-  /* .grid-container--crew > picture {
-    align-self: end;
+  /* [role="tab"]:focus {
+    color: limegreen;
   } */
 }
