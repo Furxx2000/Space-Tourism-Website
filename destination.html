@@ -21,7 +21,7 @@
     <link rel="stylesheet" href="index.css" />
     <title>Frontend Mentor | Space tourism website</title>
     <script src="./dist/navigation.js" defer></script>
-    <script src="./dist/tabs.js" defer></script>
+    <script type="module" src="./dist/tabs.js" defer></script>
   </head>
   <body class="destination">
     <a class="skip-to-content" href="#main">Skip to content</a>
@@ -43,14 +43,14 @@
           data-visible="false"
           class="primary-navigation underline-indicators ff-sans-cond flex"
         >
-          <li class="active padding">
+          <li class="padding">
             <a
               href="index.html"
               class="ff-sans-cond uppercase text-white letter-spacing-2"
               ><span aria-hidden="true">00</span>Home</a
             >
           </li>
-          <li>
+          <li class="active">
             <a
               href="destination.html"
               class="ff-sans-cond uppercase text-white letter-spacing-2"
