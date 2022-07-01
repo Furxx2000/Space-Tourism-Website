@@ -3,9 +3,21 @@ const tabs = tabList?.querySelectorAll<HTMLElement>('[role="tab"]');
 
 interface Crew {
   name: string;
-  images: { png: string; webp: string };
+  images: {
+    png: string;
+    webp: string;
+  };
   role: string;
   bio: string;
+}
+
+interface Technology {
+  name: string;
+  images: {
+    portrait: string;
+    landscape: string;
+  };
+  description: string;
 }
 
 tabList?.addEventListener("keydown", changeTabFocus);
@@ -40,13 +52,13 @@ function changeTabFocus(e: KeyboardEvent): void {
 }
 
 async function changeTabPanel(e: MouseEvent) {
-  const targetBtn = e.target as HTMLButtonElement;
+  const targetBtn = e.currentTarget as HTMLButtonElement;
   const targetPanel = targetBtn.getAttribute("aria-controls")!;
   const targetImage = targetBtn.dataset?.image!;
   const targetRole = targetBtn.dataset?.role;
+  const targetTech = targetBtn.dataset?.tech;
   const tabContainer = targetBtn.parentNode!;
   const mainContainer = tabContainer?.parentNode as HTMLElement;
-
   tabContainer
     ?.querySelector("[aria-selected='true']")
     ?.setAttribute("aria-selected", "false");
@@ -58,11 +70,13 @@ async function changeTabPanel(e: MouseEvent) {
 
     hideContent(mainContainer, "picture");
     showContent(mainContainer, targetImage);
-  } else if (targetRole) {
+  } else if (targetRole || targetTech) {
     const response = await fetch("../dist/model/data.json");
     const result = await response.json();
-    const crews = <Crew[]>result.crew;
-    const crew = crews.find((c) => c.role === targetRole);
+    const data = targetRole
+      ? <Crew[]>result.crew
+      : <Technology[]>result.technology;
+    // const crew = data.find((d) => d?.role || d?.name === targetRole);
     const crewArticle = document.querySelector(
       ".grid-container--crew > article"
     );
@@ -71,24 +85,27 @@ async function changeTabPanel(e: MouseEvent) {
     );
     crewArticle?.remove();
     crewPicture?.remove();
-    const template = `
-    <article class="crew-details flow">
-    <header class="flow flow--space-small">
-      <h2 class="fs-600 ff-serif uppercase">${crew?.role}</h2>
-      <p class="fs-700 uppercase ff-serif">${crew?.name}</p>
-    </header>
+    //   const template = `
+    //   <article class="crew-details flow">
+    //   <header class="flow flow--space-small">
+    //     <h2 class="fs-600 ff-serif uppercase">${
+    //       crew?.role || "The terminology..."
+    //     }</h2>
+    //     <p class="fs-700 uppercase ff-serif">${crew?.name}</p>
+    //   </header>
 
-    <p class="text-accent">${crew?.bio}</p>
-  </article>
+    //   <p class="text-accent">${crew?.bio || crew?.description}</p>
+    // </article>
 
-  <picture>
-    <source
-      srcset=${crew?.images.webp}
-      type="image/webp"
-    />
-    <img src=${crew?.images.png} alt=${crew?.name} />
-  </picture>`;
-    mainContainer.insertAdjacentHTML("beforeend", template);
+    // <picture>
+    //   <source
+    //     srcset=${crew?.images.webp || crew?.images.landscape}
+    //     type=${crew?.images.webp ? "image/webp" : "image/jpg"}
+    //   />
+    //   <img src=${crew?.images.png || crew?.images.landscape} alt=${crew?.name} />
+    // </picture>`;
+
+    // mainContainer.insertAdjacentHTML("beforeend", template);
   }
 }
 

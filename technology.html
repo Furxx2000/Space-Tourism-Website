@@ -23,7 +23,7 @@
     <script src="./dist/navigation.js" defer></script>
     <script type="module" src="./dist/tabs.js" defer></script>
   </head>
-  <body class="crew">
+  <body class="technology">
     <a class="skip-to-content" href="#main">Skip to content</a>
     <header class="primary-header flex">
       <!-- My ::before is here -->
@@ -57,14 +57,14 @@
               ><span aria-hidden="true">01</span>Destination</a
             >
           </li>
-          <li class="active">
+          <li>
             <a
               href="crew.html"
               class="ff-sans-cond uppercase text-white letter-spacing-2"
               ><span aria-hidden="true">02</span>Crew</a
             >
           </li>
-          <li>
+          <li class="active">
             <a
               href="technology.html"
               class="ff-sans-cond uppercase text-white letter-spacing-2"
@@ -75,70 +75,83 @@
       </nav>
       <!-- my ::after is here -->
     </header>
-
-    <main id="main" class="grid-container grid-container--crew flow">
+    <main id="main" class="grid-container grid-container--technology flow">
       <h1 class="numbered-title">
-        <span aria-hidden="true">02</span>Meet your crew
+        <span aria-hidden="true">03</span>Space launch 101
       </h1>
 
       <div
-        class="dot-indicators flex"
+        class="number-indicators flex"
         role="tablist"
-        aria-label="crew member list"
+        aria-label="technology list"
       >
         <button
+          class="bg-dark text-white ff-serif fs-500"
           aria-selected="true"
-          data-role="Commander"
+          data-tech="Launch vehicle"
           tabindex="0"
           role="tab"
         >
-          <span class="sr-only">The commander</span>
+          <span>1</span>
         </button>
         <button
+          class="bg-dark text-white ff-serif fs-500"
           aria-selected="false"
-          data-role="Mission Specialist"
+          data-tech="Spaceport"
           tabindex="-1"
           role="tab"
         >
-          <span class="sr-only">The mission specialist</span>
+          <span>2</span>
         </button>
         <button
+          class="bg-dark text-white ff-serif fs-500"
           aria-selected="false"
-          data-role="Pilot"
+          data-tech="Space capsule"
           tabindex="-1"
           role="tab"
         >
-          <span class="sr-only">The pilot</span>
-        </button>
-        <button
-          aria-selected="false"
-          data-role="Flight Engineer"
-          tabindex="-1"
-          role="tab"
-        >
-          <span class="sr-only">The crew engineer</span>
+          <span>3</span>
         </button>
       </div>
 
-      <article class="crew-details flow">
+      <article class="technology-details flow">
         <header class="flow">
-          <h2 class="fs-600 ff-serif uppercase">Commander</h2>
-          <p class="fs-700 uppercase ff-serif">Douglas Hurley</p>
+          <h2
+            class="fs-300 ff-sans-cond uppercase text-accent letter-spacing-3"
+          >
+            The terminology...
+          </h2>
+          <p class="fs-700 uppercase ff-serif">Launch vehicle</p>
         </header>
 
         <p class="text-accent">
-          Douglas Gerald Hurley is an American engineer, former Marine Corps
-          pilot and former NASA astronaut. He launched into space for the third
-          time as commander of Crew Dragon Demo-2.
+          A launch vehicle or carrier rocket is a rocket-propelled vehicle used
+          to carry a payload from Earth's surface to space, usually to Earth
+          orbit or beyond. Our WEB-X carrier rocket is the most powerful in
+          operation. Standing 150 metres tall, it's quite an awe-inspiring sight
+          on the launch pad!
         </p>
       </article>
 
       <picture>
         <source
-          srcset="/assets/crew/image-douglas-hurley.webp"
-          type="image/webp"
+          srcset="/assets/technology/image-launch-vehicle-landscape.jpg"
+          type="image/jpg"
         />
-        <img src="/assets/crew/image-douglas-hurley.png" alt="Douglas Hurley" />
+        <img
+          src="/assets/technology/image-launch-vehicle-landscape.jpg"
+          alt="Launch vehicle"
+        />
+      </picture>
+      <picture class="desktop-picture">
+        <source
+          srcset="/assets/technology/image-launch-vehicle-portrait.jpg"
+          type="image/jpg"
+        />
+        <img
+          src="/assets/technology/image-launch-vehicle-portrait.jpg"
+          alt="Launch vehicle"
+        />
       </picture>
     </main>
   </body>
