@@ -1,23 +1,17 @@
 const tabList = document.querySelector('[role="tablist"]') as HTMLDivElement;
 const tabs = tabList?.querySelectorAll<HTMLElement>('[role="tab"]');
 
-interface Crew {
+interface Data {
   name: string;
   images: {
-    png: string;
-    webp: string;
+    png?: string;
+    webp?: string;
+    portrait?: string;
+    landscape?: string;
   };
-  role: string;
-  bio: string;
-}
-
-interface Technology {
-  name: string;
-  images: {
-    portrait: string;
-    landscape: string;
-  };
-  description: string;
+  role?: string;
+  bio?: string;
+  description?: string;
 }
 
 tabList?.addEventListener("keydown", changeTabFocus);
@@ -71,12 +65,12 @@ async function changeTabPanel(e: MouseEvent) {
     hideContent(mainContainer, "picture");
     showContent(mainContainer, targetImage);
   } else if (targetRole || targetTech) {
-    const response = await fetch("../dist/model/data.json");
+    const response = await fetch("./model/data.json");
     const result = await response.json();
-    const data = targetRole
-      ? <Crew[]>result.crew
-      : <Technology[]>result.technology;
-    // const crew = data.find((d) => d?.role || d?.name === targetRole);
+    const targetData = result.find(
+      (d: Data) => d?.role || d?.name === targetRole
+    );
+    console.log(targetData);
     const crewArticle = document.querySelector(
       ".grid-container--crew > article"
     );
