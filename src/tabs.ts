@@ -65,41 +65,60 @@ async function changeTabPanel(e: MouseEvent) {
     hideContent(mainContainer, "picture");
     showContent(mainContainer, targetImage);
   } else if (targetRole || targetTech) {
-    const response = await fetch("./model/data.json");
+    const response = await fetch("../model/data.json");
     const result = await response.json();
-    const targetData = result.find(
-      (d: Data) => d?.role || d?.name === targetRole
+    const targetData = targetRole ? result.crew : result.technology;
+    const target = targetData.find(
+      (d: Data) => (d.role || d.name) === (targetRole || targetTech)
     );
-    console.log(targetData);
     const crewArticle = document.querySelector(
-      ".grid-container--crew > article"
+      `.grid-container--${targetRole ? "crew" : "technology"} > article`
     );
     const crewPicture = document.querySelector(
-      ".grid-container--crew > picture"
+      `.grid-container--${targetRole ? "crew" : "technology"} picture`
     );
     crewArticle?.remove();
     crewPicture?.remove();
-    //   const template = `
-    //   <article class="crew-details flow">
-    //   <header class="flow flow--space-small">
-    //     <h2 class="fs-600 ff-serif uppercase">${
-    //       crew?.role || "The terminology..."
-    //     }</h2>
-    //     <p class="fs-700 uppercase ff-serif">${crew?.name}</p>
-    //   </header>
+    let template = `
+      <article class="${targetRole ? "crew" : "technology"}-details flow">
+      <header class="flow">
+        <h2 class="${
+          targetRole
+            ? "fs-600 ff-serif"
+            : "fs-300 ff-sans-cond text-accent letter-spacing-3"
+        } uppercase">${target?.role || "The terminology..."}</h2>
+        <p class="fs-700 uppercase ff-serif">${target?.name}</p>
+      </header>
 
-    //   <p class="text-accent">${crew?.bio || crew?.description}</p>
-    // </article>
+      <p class="text-accent">${target?.bio || target?.description}</p>
+    </article>
 
-    // <picture>
-    //   <source
-    //     srcset=${crew?.images.webp || crew?.images.landscape}
-    //     type=${crew?.images.webp ? "image/webp" : "image/jpg"}
-    //   />
-    //   <img src=${crew?.images.png || crew?.images.landscape} alt=${crew?.name} />
-    // </picture>`;
+    <picture>
+      <source
+        srcset=${target?.images.webp || target?.images.landscape}
+        type=${target?.images.webp ? "image/webp" : "image/jpg"}
+      />
+      <img src=${target?.images.png || target?.images.landscape} alt=${
+      target?.name
+    } />
+    </picture>`;
+    if (targetTech) {
+      const template2 = `
+      <picture class="desktop-picture">
+          <source
+            srcset=${target?.images.portrait}
+            type="image/jpg"
+          />
+          <img
+            src=${target?.images.portrait}
+            alt=${target?.name}
+          />
+        </picture>
+      `;
+      template = template.concat(" ", template2);
+    }
 
-    // mainContainer.insertAdjacentHTML("beforeend", template);
+    mainContainer.insertAdjacentHTML("beforeend", template);
   }
 }
 

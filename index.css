@@ -742,11 +742,15 @@ body {
 
   .grid-container--destination {
     justify-items: start;
-    align-content: start;
+    align-content: center;
     grid-template-areas:
       ". title title ."
       ". image tabs ."
       ". image content .";
+  }
+
+  .grid-container--destination > picture {
+    max-width: 100%;
   }
 
   .grid-container--crew > picture {
@@ -761,7 +765,7 @@ body {
   }
 
   .grid-container--crew {
-    grid-template-columns: minmax(1rem, 1fr) minmax(0, 37rem) minmax(0, 23rem) minmax(
+    grid-template-columns: minmax(1rem, 1fr) minmax(0, 40rem) minmax(0, 26rem) minmax(
         1rem,
         1fr
       );
@@ -787,10 +791,9 @@ body {
   }
 
   .grid-container--technology {
-    grid-template-columns: minmax(1rem, 1fr) minmax(0, 7rem) minmax(0, 37rem) minmax(
-        0,
-        26rem
-      );
+    grid-template-columns:
+      minmax(1rem, 1fr) minmax(7rem, 9rem) minmax(0, 40rem)
+      minmax(2rem, 42rem);
     justify-items: flex-start;
     grid-template-areas:
       ". title title ."
