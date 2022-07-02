@@ -65,7 +65,9 @@ async function changeTabPanel(e: MouseEvent) {
     hideContent(mainContainer, "picture");
     showContent(mainContainer, targetImage);
   } else if (targetRole || targetTech) {
-    const response = await fetch("../model/data.json");
+    const response = await fetch(
+      "https://furxx2000.github.io/Space-Tourism-Website/model/data.json"
+    );
     const result = await response.json();
     const targetData = targetRole ? result.crew : result.technology;
     const target = targetData.find(

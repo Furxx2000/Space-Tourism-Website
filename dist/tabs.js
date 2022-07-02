@@ -55,7 +55,7 @@ function changeTabPanel(e) {
             showContent(mainContainer, targetImage);
         }
         else if (targetRole || targetTech) {
-            const response = yield fetch("../model/data.json");
+            const response = yield fetch("https://furxx2000.github.io/Space-Tourism-Website/model/data.json");
             const result = yield response.json();
             const targetData = targetRole ? result.crew : result.technology;
             const target = targetData.find((d) => (d.role || d.name) === (targetRole || targetTech));
